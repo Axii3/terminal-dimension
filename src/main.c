@@ -24,7 +24,10 @@ void disableRawMode(struct termios *orig_termios) {
 int player_x = 0;
 int player_y = 0;
 
-struct triangle t1 = (triangle){Vertex(Vector3(5, 5, 0)), Vertex(Vector3(10, 5, 0)), Vertex(Vector3(2, 10, 0))};
+struct triangle t1 = (triangle){
+		Vertex(Vector3(5, 5, 0)), 
+		Vertex(Vector3(60, 5, 0)), 
+		Vertex(Vector3(15, 30, 0))};
 
 void update(char key);
 
@@ -77,5 +80,7 @@ void update(char key) {
 	else if(key == 's'){
 		player_y --;
 	}
+
+	drawTriangle(t1);
 }
 

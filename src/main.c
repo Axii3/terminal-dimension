@@ -1,17 +1,28 @@
 #include <stdio.h>
 
-#define SIZEOF(arr) sizeof(arr) / sizeof(*arr)
+#define WIDTH 40
+#define HEIGHT 20
 
-#define WIDTH 5
-#define HEIGHT 5
+#define SIZEOF(arr) sizeof(arr) / sizeof(*arr)
+#define GET_ONED_POSITION(x, y) (y * WIDTH) + x
 
 int display_size = WIDTH * HEIGHT;
 int display[WIDTH * HEIGHT];
 
 char char_dictionary[] = {'.', '#'};
 
+typedef struct{
+	float x;
+	float y;
+} Vector2;
+#define Vector2(x, y) (Vector2){x, y}
+
+int getPixel(Vector2 position);
+void setPixel(Vector2 position, int value);
+
+
 void draw();
-void setPixel(int x, int y, int value);
+
 
 //remove
 int len(int array[]) {
@@ -20,8 +31,8 @@ int len(int array[]) {
 
 int main() {
 
-	setPixel(0, 0, 5);
-	setPixel(2, 2, 1);
+	setPixel(Vector2(0, 0), 5);
+	setPixel(Vector2(5, 5), 1);
 
 	draw();
 
@@ -34,16 +45,13 @@ void draw(){
         for (int x = 0; x < WIDTH; ++x)
         {
         	{
-        		int list_space = display[(y * WIDTH) + x];
-        		if (list_space <= SIZEOF(char_dictionary)){
-        			printf("%c", char_dictionary[list_space]);
+        		Vector2 position = Vector2(x, y);
+        		if (getPixel(position) <= SIZEOF(char_dictionary)){
+        			printf("%c", char_dictionary[getPixel(position)]);
         		}
         		else {
         			printf("%c", 'o');
         		}
-        		
-
-                //printf("\033[0m. ");
             }
         }
         printf("\033[0m\n");
@@ -51,6 +59,10 @@ void draw(){
     return;
 }
 
-void setPixel(int x, int y, int value) {
-	display[(y * WIDTH) + x] = value;
+void setPixel(Vector2 position, int value) {
+	display[GET_ONED_POSITION((int)position.x, (int)position.y)] = value;
+}
+
+int getPixel(Vector2 position) {
+	return display[GET_ONED_POSITION((int)position.x, (int)position.y)];
 }

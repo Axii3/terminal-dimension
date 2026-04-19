@@ -32,7 +32,7 @@ struct triangle t1 = (triangle){
 
 struct triangle t2 = (triangle){
 		Vertex(Vector3(0, 25, 0)), 
-		Vertex(Vector3(60, 25, 0)), 
+		Vertex(Vector3(50, 25, 0)),
 		Vertex(Vector3(50, 0, 0))};
 
 struct triangle t3 = (triangle){
@@ -42,7 +42,7 @@ struct triangle t3 = (triangle){
 
 struct triangle t4 = (triangle){
 		Vertex(Vector3(0, 25, 50)), 
-		Vertex(Vector3(60, 25, 50)), 
+		Vertex(Vector3(50, 25, 50)), 
 		Vertex(Vector3(50, 0, 50))};
 
 
@@ -120,5 +120,6 @@ void update(char key) {
 	drawTriangle(t2);
 	drawTriangle(t3);
 	drawTriangle(t4);
+	//drawLine(Vector2(40, 0), Vector2(player_position.x, player_position.y), 1);
 }
 

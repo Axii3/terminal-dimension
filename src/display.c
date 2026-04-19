@@ -79,9 +79,19 @@ void drawLine(vector2 position1, vector2 position2, int value) {
 	int height = end.y - start.y;
 	
 	//float m = (float)height / width;
-	float m = 0;
+	float m = height;
 	if (!(end.x == start.x)){
 		m = (float)height / width;
+	}else {
+		if (position1.y < position2.y){
+			for (int y = 0; y < start.y - end.y; y++) {
+				setPixel(Vector2(start.x, (int)(end.y + y)), value);
+			}
+		}else {
+			for (int y = 0; y < height; y++) {
+				setPixel(Vector2(start.x, (int)(start.y + y)), value);
+			}
+		}
 	}
 
 	for (int x = 0; x < width; ++x)

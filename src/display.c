@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "display.h"
 #include "utility.h"
 
@@ -11,8 +12,9 @@ char char_dictionary[] = {' ', '#'};
 
 
 
+
 void draw(){
-	
+	printf("WASD to move | space to fly up | c to fly down | q/e to adjust FOV");
     printf("\e[1;1H\e[2J"); 
     for (int y = 0; y < HEIGHT; ++y)
     {
@@ -30,6 +32,7 @@ void draw(){
         }
         printf("\033[0m\n");
     }
+	
     return;
 }
 
@@ -71,14 +74,25 @@ void drawLine(vector2 position1, vector2 position2, int value) {
 		start = position2;
 		end = position1;
 	}
-
+	
 	int width = end.x - start.x;
 	int height = end.y - start.y;
+	
+	//float m = (float)height / width;
+	float m = 0;
+	if (!(end.x == start.x)){
+		m = (float)height / width;
+	}
 
-	float m = (float)height / width;
 	for (int x = 0; x < width; ++x)
 	{
 		int y = (int)(m * x) + start.y;
+
 		setPixel(Vector2(start.x + x, y), value);
+		for (int i = 0; i < (int)(abs(m)); i++) {
+			setPixel(Vector2(start.x + x, (int)(y + i)), value);
+			setPixel(Vector2(start.x + x, (int)(y - i)), value);
+		}
 	}
+	
 }

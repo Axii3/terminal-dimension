@@ -15,6 +15,8 @@ extern int display[];
 extern char char_dictionary[];
 
 
+
+
 int getPixel(vector2 position);
 
 void setPixel(vector2 position, int value);

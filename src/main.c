@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <termios.h>
 #include <fcntl.h>
@@ -21,13 +22,30 @@ void disableRawMode(struct termios *orig_termios) {
 }
 
 
-int player_x = 0;
-int player_y = 0;
+vector3 player_position = Vector3(0, 0, -5);
+float player_speed = 10;
 
 struct triangle t1 = (triangle){
-		Vertex(Vector3(5, 5, 0)), 
-		Vertex(Vector3(60, 5, 0)), 
-		Vertex(Vector3(15, 30, 0))};
+		Vertex(Vector3(0, 0, 0)), 
+		Vertex(Vector3(0, 25, 0)), 
+		Vertex(Vector3(50, 0, 0))};
+
+struct triangle t2 = (triangle){
+		Vertex(Vector3(0, 25, 0)), 
+		Vertex(Vector3(60, 25, 0)), 
+		Vertex(Vector3(50, 0, 0))};
+
+struct triangle t3 = (triangle){
+		Vertex(Vector3(0, 0, 50)), 
+		Vertex(Vector3(0, 25, 50)), 
+		Vertex(Vector3(50, 0, 50))};
+
+struct triangle t4 = (triangle){
+		Vertex(Vector3(0, 25, 50)), 
+		Vertex(Vector3(60, 25, 50)), 
+		Vertex(Vector3(50, 0, 50))};
+
+
 
 void update(char key);
 
@@ -56,8 +74,11 @@ int main() {
         update(c);
 
         system("clear");
+		
         draw();
+		
         clear();
+		
 
 	}
 	disableRawMode(&orig_termios);
@@ -69,18 +90,35 @@ void update(char key) {
 
 
 	if (key == 'd'){
-		player_x++;
+		player_position.x++;
 	}
 	else if(key == 'a'){
-		player_x --;
+		player_position.x--;
+	}
+	else if (key == ' '){
+		player_position.y++;
+	}
+	else if(key == 'c'){
+		player_position.y--;
 	}
 	else if (key == 'w'){
-		player_y++;
+		player_position.z++;
 	}
 	else if(key == 's'){
-		player_y --;
+		player_position.z--;
+	}
+	else if (key == 'e'){
+		field_of_view++;
+	}
+	else if(key == 'q'){
+		field_of_view--;
 	}
 
+	camera_position = player_position;
+
 	drawTriangle(t1);
+	drawTriangle(t2);
+	drawTriangle(t3);
+	drawTriangle(t4);
 }
 

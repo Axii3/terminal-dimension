@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include "display.h"
 #include "utility.h"
+#include "vertex_shader.h"
 
 void enableRawMode(struct termios *orig_termios) {
     struct termios raw;
@@ -23,6 +24,7 @@ void disableRawMode(struct termios *orig_termios) {
 int player_x = 0;
 int player_y = 0;
 
+struct triangle t1 = (triangle){Vertex(Vector3(5, 5, 0)), Vertex(Vector3(10, 5, 0)), Vertex(Vector3(2, 10, 0))};
 
 void update(char key);
 
@@ -38,11 +40,6 @@ int main() {
     // set to non blocking mode
     int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
     fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
-
-	//setPixel(Vector2(0, 0), 5);
-	//setPixel(Vector2(5, 5), 1);
-	drawLine(Vector2(19,19), Vector2(4,2), 1);
-	drawLine(Vector2(4,19), Vector2(19,2), 1);
 
 	int running = 1;
 	while(running){
@@ -80,6 +77,5 @@ void update(char key) {
 	else if(key == 's'){
 		player_y --;
 	}
-	drawLine(Vector2(4,19), Vector2(player_x,player_y), 1);
 }
 

@@ -7,7 +7,7 @@
 #define HEIGHT 40
 
 #define SIZEOF(arr) sizeof(arr) / sizeof(*arr)
-#define GET_ONED_POSITION(x, y) (y * WIDTH) + x
+#define GET_ONED_POSITION(x, y) (int)((y * WIDTH) + x)
 
 extern int display_size;
 extern int display[];

@@ -9,6 +9,8 @@ int display[WIDTH * HEIGHT];
 
 char char_dictionary[] = {' ', '#'};
 
+
+
 void draw(){
 	
     printf("\e[1;1H\e[2J"); 
